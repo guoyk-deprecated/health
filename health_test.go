@@ -8,7 +8,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/labstack/echo"
+	"github.com/labstack/echo/v4"
 )
 
 type testResource int

@@ -3,7 +3,7 @@ package health
 import (
 	"net/http"
 
-	"github.com/labstack/echo"
+	"github.com/labstack/echo/v4"
 )
 
 // Resource something that need be health checked
