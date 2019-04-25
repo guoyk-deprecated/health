@@ -31,8 +31,18 @@ func main() {
 
 ### Check
 
+**Liveness**
+
 ```bash
-curl http://127.0.0.1:1234/.well-known/health
+curl http://127.0.0.1:1234/_liveness
+```
+
+**Readiness**
+
+This will check all resources with `HealthCheck()` method
+
+```bash
+curl http://127.0.0.1:1234/_readiness
 ```
 
 ## License

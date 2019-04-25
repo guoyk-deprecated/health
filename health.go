@@ -15,7 +15,9 @@ type Resource interface {
 func New(rs ...Resource) echo.MiddlewareFunc {
 	return func(next echo.HandlerFunc) echo.HandlerFunc {
 		return func(c echo.Context) error {
-			if c.Request().URL.Path == "/.well-known/health" {
+			if c.Request().URL.Path == "/_liveness" {
+				return c.String(http.StatusOK, "OK")
+			} else if c.Request().URL.Path == "/_readiness" {
 				for _, r := range rs {
 					if err := r.HealthCheck(); err != nil {
 						return c.String(http.StatusInternalServerError, err.Error())

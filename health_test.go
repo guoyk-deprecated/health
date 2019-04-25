@@ -24,7 +24,7 @@ func (t *testResource) HealthCheck() error {
 func TestHealth(t *testing.T) {
 	var i testResource
 	e := echo.New()
-	req := httptest.NewRequest(http.MethodGet, "/.well-known/health", nil)
+	req := httptest.NewRequest(http.MethodGet, "/_readiness", nil)
 	rec := httptest.NewRecorder()
 	c := e.NewContext(req, rec)
 	handler := func(c echo.Context) error {
@@ -50,7 +50,7 @@ func TestHealth(t *testing.T) {
 	assert.Equal(t, "test", rec.Body.String())
 	assert.Equal(t, http.StatusOK, rec.Code)
 
-	req = httptest.NewRequest(http.MethodGet, "/.well-known/health", nil)
+	req = httptest.NewRequest(http.MethodGet, "/_readiness", nil)
 	rec = httptest.NewRecorder()
 	c = e.NewContext(req, rec)
 	handler = func(c echo.Context) error {
@@ -62,4 +62,18 @@ func TestHealth(t *testing.T) {
 
 	assert.Equal(t, "OK", rec.Body.String())
 	assert.Equal(t, http.StatusOK, rec.Code)
+
+	req = httptest.NewRequest(http.MethodGet, "/_liveness", nil)
+	rec = httptest.NewRecorder()
+	c = e.NewContext(req, rec)
+	handler = func(c echo.Context) error {
+		return c.String(http.StatusOK, "test")
+	}
+	m = New(&i)
+	h = m(handler)
+	h(c)
+
+	assert.Equal(t, "OK", rec.Body.String())
+	assert.Equal(t, http.StatusOK, rec.Code)
+
 }
