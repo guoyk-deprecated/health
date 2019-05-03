@@ -26,10 +26,7 @@ func New(rs ...Resource) echo.MiddlewareFunc {
 				return c.String(http.StatusOK, "OK")
 			}
 
-			if err := next(c); err != nil {
-				c.Error(err)
-			}
-			return nil
+			return next(c)
 		}
 	}
 }
