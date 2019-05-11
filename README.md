@@ -31,19 +31,13 @@ func main() {
 
 ### Check
 
-**Liveness**
+For HTTP service, liveness and readiness should be identical.
 
 ```bash
-curl http://127.0.0.1:1234/_liveness
+curl http://127.0.0.1:1234/_health
 ```
-
-**Readiness**
 
 This will check all resources with `HealthCheck()` method
-
-```bash
-curl http://127.0.0.1:1234/_readiness
-```
 
 ## License
 
