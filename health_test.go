@@ -32,8 +32,9 @@ func TestHealth(t *testing.T) {
 	}
 	m := New(&i)
 	h := m(handler)
-	h(c)
+	err := h(c)
 
+	assert.Nil(t, err)
 	assert.Equal(t, "BAD", rec.Body.String())
 	assert.Equal(t, http.StatusInternalServerError, rec.Code)
 
@@ -45,8 +46,9 @@ func TestHealth(t *testing.T) {
 	}
 	m = New(&i)
 	h = m(handler)
-	h(c)
+	err = h(c)
 
+	assert.Nil(t, err)
 	assert.Equal(t, "test", rec.Body.String())
 	assert.Equal(t, http.StatusOK, rec.Code)
 
@@ -58,8 +60,9 @@ func TestHealth(t *testing.T) {
 	}
 	m = New(&i)
 	h = m(handler)
-	h(c)
+	err = h(c)
 
+	assert.Nil(t, err)
 	assert.Equal(t, "OK", rec.Body.String())
 	assert.Equal(t, http.StatusOK, rec.Code)
 }
